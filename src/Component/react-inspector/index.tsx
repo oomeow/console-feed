@@ -1,11 +1,12 @@
 import { withTheme } from 'emotion-theming'
 import * as React from 'react'
 import {
-  Inspector,
+  ObjectInspector,
   ObjectLabel,
   ObjectName,
   ObjectPreview,
   ObjectValue,
+  TableInspector,
 } from 'react-inspector'
 
 import { Context } from '../../definitions/Component'
@@ -108,23 +109,14 @@ class CustomInspector extends React.PureComponent<Props, any> {
       <Root data-type={table ? 'table' : dom ? 'html' : 'object'}>
         {table ? (
           <Table>
-            <Inspector {...this.props} theme={{ ...styles }} table />
-            <Inspector
-              {...this.props}
-              theme={styles}
-              nodeRenderer={this.nodeRenderer.bind(this)}
-            />
+            <TableInspector data={data} />
           </Table>
         ) : dom ? (
           <HTML>
-            <Inspector {...this.props} theme={{ ...styles }} />
+            <ObjectInspector data={data} />
           </HTML>
         ) : (
-          <Inspector
-            {...this.props}
-            theme={styles}
-            nodeRenderer={this.nodeRenderer.bind(this)}
-          />
+          <ObjectInspector nodeRenderer={this.nodeRenderer.bind(this)} />
         )}
       </Root>
     )
@@ -160,7 +152,7 @@ class CustomInspector extends React.PureComponent<Props, any> {
     if (data instanceof HTMLElement)
       return (
         <HTML>
-          <DOMInspector data={data} theme={styles} />
+          <ObjectInspector data={data} />
         </HTML>
       )
 
