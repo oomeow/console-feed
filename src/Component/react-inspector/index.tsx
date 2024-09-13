@@ -109,14 +109,18 @@ class CustomInspector extends React.PureComponent<Props, any> {
       <Root data-type={table ? 'table' : dom ? 'html' : 'object'}>
         {table ? (
           <Table>
-            <TableInspector data={data} />
+            <TableInspector {...this.props} theme={{ ...styles } as any} />
           </Table>
         ) : dom ? (
           <HTML>
-            <ObjectInspector data={data} />
+            <ObjectInspector {...this.props} theme={{ ...styles } as any} />
           </HTML>
         ) : (
-          <ObjectInspector nodeRenderer={this.nodeRenderer.bind(this)} />
+          <ObjectInspector
+            {...this.props}
+            theme={{ ...styles } as any}
+            nodeRenderer={this.nodeRenderer.bind(this)}
+          />
         )}
       </Root>
     )
@@ -152,7 +156,7 @@ class CustomInspector extends React.PureComponent<Props, any> {
     if (data instanceof HTMLElement)
       return (
         <HTML>
-          <ObjectInspector data={data} />
+          <ObjectInspector {...this.props} theme={{ ...styles } as any} />
         </HTML>
       )
 
